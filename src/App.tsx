@@ -1,5 +1,9 @@
+// Styles
+import s from "./app.module.scss";
+// Axios
 import axios from "axios";
-import { useEffect, useState } from "react";
+// React
+import { useState } from "react";
 function App() {
   // Data
   const [data, setData] = useState<any>({});
@@ -8,6 +12,7 @@ function App() {
   // Api
   const API_KEY = "6d6623e0ab0d4d74aa1fce9aca6ab7fd";
   const URL = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=${API_KEY}`;
+  // Func search location
   const searchLocation = (event: any) => {
     if (event.key === "Enter") {
       setData("");
@@ -27,20 +32,20 @@ function App() {
   return (
     <>
       <section
-        className={`weatherApp_wrapper ${
+        className={`${s.weatherApp_wrapper} ${
           data.name != undefined ? "bgHide" : ""
         }`}
       >
         {data.weather ? (
-          <figure className="bg">
+          <figure className={s.bg}>
             <img src={`/bg/${data.weather[0].main}.jpg`} alt="" />
           </figure>
         ) : null}
 
         <article>
-          <div className="output">
+          <div className={s.output}>
             <input
-              className={error ? "error" : ""}
+              className={error ? s.error : ""}
               value={location}
               onChange={(event) => setLocation(event.target.value)}
               onKeyPress={searchLocation}
@@ -48,44 +53,44 @@ function App() {
               placeholder="Search location..."
             />
           </div>
-          <section className={`top`}>
+          <section className={s.top}>
             {data.name != undefined && (
               <>
-                <section className="top_content">
-                  <div className="location">
+                <section className={s.top_content}>
+                  <div className={s.location}>
                     <p>{data.name}</p>
                   </div>
-                  <div className="temp">
+                  <div className={s.temp}>
                     {data.main ? <p>{data.main.temp.toFixed()}°C</p> : null}
                   </div>
-                  <div className="description">
+                  <div className={s.description}>
                     {data.weather ? <p>{data.weather[0].description}</p> : null}
                     {data.weather ? (
                       <img src={`/icons/${data.weather[0].main}.png`} alt="" />
                     ) : null}
                   </div>
                 </section>
-                <div className="region">
+                <div className={s.region}>
                   {data.sys ? <span>{data.sys.country}</span> : null}
                 </div>
               </>
             )}
           </section>
-          <section className="bottom">
+          <section className={s.bottom}>
             {data.name != undefined && (
               <>
-                <section className="bottom_content">
-                  <div className="feels">
+                <section className={s.bottom_content}>
+                  <div className={s.feels}>
                     {data.main ? (
                       <p>{data.main.feels_like.toFixed()}°C</p>
                     ) : null}
                     <span>Feels Like</span>
                   </div>
-                  <div className="humidity">
+                  <div className={s.humidity}>
                     {data.main ? <p>{data.main.humidity}%</p> : null}
                     <span>Humidity</span>
                   </div>
-                  <div className="wind">
+                  <div className={s.wind}>
                     {data.wind ? <p>{data.wind.speed}MPH</p> : null}
                     <span>Wind Speed</span>
                   </div>
